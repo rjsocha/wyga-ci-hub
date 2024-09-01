@@ -1,0 +1,14 @@
+default:
+  image: ${DPROXY}wyga/docker-shell:latest
+  services:
+  - name: ${DPROXY}docker:dind
+    alias: docker
+    command: [ "--registry-mirror=https://mirror.e.wyga.site" ]
+  tags:
+    - docker-in-docker
+
+variables:
+  DPROXY: "${CI_DEPENDENCY_PROXY_SERVER}/ci/dependency_proxy/containers/"
+  DOCKER_TLS_CERTDIR: "/certs"
+  DOCKER_CREATE_CONTEXT: 1
+  FF_DISABLE_UMASK_FOR_DOCKER_EXECUTOR: 1
